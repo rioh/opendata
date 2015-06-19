@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Drugs</title>
+    <link href="{% static 'jquery-ui.css' %}" rel="stylesheet" />
+    {% block extra_css %}
+    {% endblock %}
+</head>
+
+<body>
+
+  <form action="{% url 'search' %}" method="get" name="main_search" id="mainsearch">
+    <input type="text" name="q">
+    <input type="submit" values="Search">
+  </form>
+
+  {% block body %}
+  {% endblock %}
+</body>
+
+<script src="{% static '' %}"></script>
+{% block extra_js %}
+{% endblock %}
+
+</html>
