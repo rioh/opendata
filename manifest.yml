@@ -1,0 +1,5 @@
+---
+applications:
+- name: opendata
+  instances: 1
+  host: opendata-bustedunihorn
