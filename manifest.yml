@@ -3,4 +3,4 @@ applications:
 - name: opendata
   instances: 1
   memory: 256MB
-  host: opendata-bustedunihorn
+  host: opendata-artemis
