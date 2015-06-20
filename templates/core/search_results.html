@@ -1,3 +1,52 @@
+{% extends "core/base.html" %}
+
+
 {% block body %}
-search_results
+
+You searched for {{ q }} <br />
+
+<div>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#labels" aria-controls="labels" role="tab" data-toggle="tab">Labels</a></li>
+    <li role="presentation"><a href="#events" aria-controls="events" role="tab" data-toggle="tab">Events</a></li>
+    <li role="presentation"><a href="#enforcements" aria-controls="enforcements" role="tab" data-toggle="tab">Enforcements</a></li>
+  </ul>
+</div>
+
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="labels">
+  {% for results in label_results %}<br />
+  {% for key, value in results.items %}
+  {{ key }}: {{ value }}<br />
+  {% endfor %}
+  {% endfor %}
+  </div>
+
+  <div role="tabpanel" class="tab-pane" id="events">
+  {% for results in event_results %}<br />
+  {% for key, value in results.items %}
+  {{ key }}: {{ value }}<br />
+  {% endfor %}
+  {% endfor %}
+  </div>
+
+  <div role="tabpanel" class="tab-pane" id="enforcements">
+  {% for results in enforcement_results %}<br />
+  {% for key, value in results.items %}
+  {{ key }}: {{ value }}<br />
+  {% endfor %}
+  {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$('#myTabs a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+</script>
 {% endblock %}

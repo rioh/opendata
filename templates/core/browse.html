@@ -1,0 +1,10 @@
+{% extends "core/base.html" %}
+{% load url_tags %}
+
+{% block body %}
+
+{% for term in terms %}
+<a href="{% url 'search' %}?q={{ term|replace_spaces|urlencode }}">{{ term }}</a></br>
+{% endfor %}
+
+{% endblock %}

@@ -164,6 +164,6 @@ LOGGING = {
 
 # FDA API details
 FDA_DRUG_API_EVENT_URL = "https://api.fda.gov/drug/event.json"  # adverse events
-FDA_DRUG_API__URL = "https://api.fda.gov/drug/label.json"  # drug labeling
-FDA_DRUG_API_EVENT_URL = "https://api.fda.gov/drug/enforcement.json"  # drug enforcement reports
+FDA_DRUG_API_LABEL_URL = "https://api.fda.gov/drug/label.json"  # drug labeling
+FDA_DRUG_API_ENFORCEMENT_URL = "https://api.fda.gov/drug/enforcement.json"  # drug enforcement reports
 #FDA_DRUG_API_KEY = ""
