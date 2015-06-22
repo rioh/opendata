@@ -4,7 +4,9 @@
 {% block body %}
 
 {% for term in terms %}
-<a href="{% url 'search' %}?q={{ term|replace_spaces|urlencode }}">{{ term }}</a></br>
+{% for key, value in term.items %}
+<a href="{% url 'search' %}?q={{key}}:{{ value|replace_spaces|urlencode }}">{{ value }}</a></br>
+{% endfor %}
 {% endfor %}
 
 {% endblock %}
