@@ -1,9 +1,13 @@
 {% extends "core/base.html" %}
 
+{% load staticfiles %}
 
 {% block body %}
 
-You searched for {{ q }} <br />
+  <div class="row"> <img src="{% static "images/drugs.png" %}" class="img-responsive" alt="drugs banner image">
+    <h3>Drug Details</h3>
+    <p>You searched for {{ q }}</p>
+  </div>
 
 <div>
   <!-- Nav tabs -->
@@ -47,8 +51,7 @@ You searched for {{ q }} <br />
 
 {% block extra_js %}
 <script type="text/javascript">
-// jquery will run this function when the page has finished loading.
-(function ($) {
+(function($) {
 
     var drugNames = 
         [
