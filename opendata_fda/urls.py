@@ -6,5 +6,5 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns(
     '',
-    url(r'data/', include('core.urls')),
+    url(r'^', include('core.urls')),
 )

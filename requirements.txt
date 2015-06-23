@@ -8,3 +8,7 @@ gunicorn==19.3.0
 
 # Used to serve static files
 whitenoise==2.0
+
+django-nose==1.4
+mock==1.0.1
+nose==1.3.7

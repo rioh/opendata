@@ -2,7 +2,7 @@ import logging
 
 from django.shortcuts import render
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 
 from .api_client import ApiClient
 
@@ -27,8 +27,9 @@ def search(request):
         query_string = request.GET.get('q')
         browse_type = request.GET.get('browse_type')
         client = ApiClient()
-        return render(request, 'core/search_results.html', client.search(query_string, api=browse_type))
-
+        data = client.search(query_string, api=browse_type)
+        return render(request, 'core/search_results.html', data)
+    return HttpResponseBadRequest()
 
 def result(request):
     return render(request, 'core/result.html')

@@ -14,7 +14,7 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': '',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
@@ -124,6 +124,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_nose',
     'core',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
@@ -159,6 +160,8 @@ LOGGING = {
         },
     },
 }
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # FDA API details
 FDA_DRUG_API_EVENT_URL = "https://api.fda.gov/drug/event.json"  # adverse events
