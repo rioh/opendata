@@ -132,25 +132,15 @@
 
     function getDataAndCreateProductChart(productName) {
 
-        $.getJSON("{% url 'search_detail' %}", {"q": "{{ q }}", "filter_string": productName})
+        $.getJSON("{% url 'search_detail' %}", {"browse_type": "events", "q": "{{ q }}", "filter_string": productName})
             .fail(function() {
                 console.log("error getting data");
             })
             .done(function(results) {
                 console.log(results);
-                var productData = result;
+                var productData = results;
                 createProductChart(productName, productData);
             });
-
-        var productData = [{
-            name: "Male",
-            data: [3, 5, 12, 5, 9, 0]
-        }, {
-            name: "Female",
-            data: [1, 6, 5, 13, 19, 7]
-        }];
-
-        createProductChart(productName, productData);
     }
 
     function createProductChart(productName, productDataArray) {
@@ -162,19 +152,14 @@
                 type: 'column'
             },
             title: {
-                text: productName+" effects grouped by age"
+                text: productName+" effects grouped by sex"
             },
             subtitle: {
-                text: 'this data is also made up'
+                text: ''
             },
             xAxis: {
                 categories: [
-                    "0-15",
-                    "15-30",
-                    "30-45",
-                    "45-60",
-                    "60-75",
-                    "75-90"
+                    "0-100",
                 ],
                 crosshair: false
             },

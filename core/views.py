@@ -17,16 +17,17 @@ def homepage(request):
 def browse(request, browse_type):
     logger.debug("browsing %s", browse_type)
     client = ApiClient()
-    data = {'terms': client.browse(browse_type)}
+    data = {'browse_type': browse_type,
+            'terms': client.browse(browse_type)}
     return render(request, 'core/browse.html', data)
 
 
 def search(request):
     if request.method == 'GET' and 'q' in request.GET:
-        query_string = request.GET.get('q').strip()
+        query_string = request.GET.get('q')
+        browse_type = request.GET.get('browse_type')
         client = ApiClient()
-
-        return render(request, 'core/search_results.html', client.search(query_string))
+        return render(request, 'core/search_results.html', client.search(query_string, api=browse_type))
 
 
 def result(request):
@@ -38,6 +39,7 @@ def search_detail(request):
     if request.method == 'GET' and 'q' in request.GET:
         q = request.GET.get('q').strip()
         filter_string = request.GET.get('filter_string').strip()
+        browse_type = request.GET.get('browse_type').strip()
         client = ApiClient()
-        results = client.get_age_sex(q, filter_string)
+        results = client.get_age_sex(browse_type, q, filter_string)
     return HttpResponse(results, content_type='application/json')

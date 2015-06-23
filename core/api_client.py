@@ -1,6 +1,7 @@
 import requests
 import logging
 import urllib
+import json
 
 from django.conf import settings
 
@@ -35,8 +36,9 @@ class ApiClient(object):
                     filter_string += "&%s:%s" % (key, value)
                 else:
                     filter_string += "+%s:%s" % (key, value)
-        # TEST
-        filter_string = "&count=patient.drug.openfda.substance_name"
+        # TESTING
+        if api == "events":
+            filter_string = "&count=patient.drug.openfda.substance_name"
         data = {'q': query_string}
         if api is None:
             for t in API_TYPES.keys():
@@ -46,10 +48,30 @@ class ApiClient(object):
 
         return data
 
-    def get_age_sex(self, param, filter_string):
-        filter_string = '+AND+patient.drug.openfda.substance_name:%s' % filter_string
-        resp = self.get_data('events', param, filter_string)
-        return resp
+    def get_age_sex(self, api_type, param, filter_string):
+        # grouping by male
+        self.logger.debug("api_type: %s", api_type)
+        male_filter = '+AND+patient.drug.openfda.substance_name:%s+AND+patient.patientsex:1' % filter_string
+        url = '%s?search=%s%s' % (API_TYPES[api_type], urllib.quote(param), male_filter)
+        self.logger.debug("url: %s", url)
+        resp = requests.get(url)
+        resp_json = resp.json()
+        total_male = resp_json['meta']['results']['total']
+        
+        # grouping by female
+        female_filter = '+AND+patient.drug.openfda.substance_name:%s+AND+patient.patientsex:2' % filter_string
+        url = '%s?search=%s%s' % (API_TYPES[api_type], urllib.quote(param), female_filter)
+        self.logger.debug("url: %s", url)
+        resp = requests.get(url)
+        resp_json = resp.json()
+        total_female = resp_json['meta']['results']['total']
+        return json.dumps([{
+            "name": "Male",
+            "data": [total_male]
+        }, {
+            "name": "Female",
+            "data": [total_female]
+        }]);
 
     def get_data(self, api_type, query_string, filter_string):
 
